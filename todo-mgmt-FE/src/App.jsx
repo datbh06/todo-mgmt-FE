@@ -3,6 +3,7 @@ import ListTodosComponent from "./components/ListTodosComponent.jsx";
 import HeaderComponent from "./components/HeaderComponent.jsx";
 import FooterComponent from "./components/FooterComponent.jsx";
 import {BrowserRouter, Route, Routes} from "react-router-dom";
+import TodoComponent from "./components/TodoComponent.jsx";
 
 function App() {
 
@@ -13,6 +14,7 @@ function App() {
             <Routes>
                 <Route path='/' element={<ListTodosComponent/>}/>
                 <Route path='/todos' element={<ListTodosComponent/>}/>
+                <Route path='/add-todo' element={<TodoComponent/>}/>
             </Routes>
 
             <FooterComponent/>
