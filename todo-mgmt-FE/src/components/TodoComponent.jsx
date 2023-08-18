@@ -1,16 +1,28 @@
-import React, {useState} from 'react';
+import React, {useEffect, useState} from 'react';
 import {useNavigate, useParams} from "react-router-dom";
-import {createTodo} from "../services/TodoService.js";
+import {createTodo, getAllTodos, getTodoById} from "../services/TodoService.js";
 
 const TodoComponent = () => {
     const [title, setTitle] = useState('');
     const [description, setDescription] = useState('');
-    const [completed, setCompleted] = useState('');
+    const [completed, setCompleted] = useState(false);
     const [todos, setTodos] = useState([]);
 
     const navigator = useNavigate();
 
     const {id} = useParams();
+
+    useEffect(() => {
+        if (id) {
+            getTodoById(id).then((res) => {
+                setTitle(res.data.title);
+                setDescription(res.data.description);
+                setCompleted(res.data.completed);
+            }).catch((err) => {
+                console.error(err);
+            });
+        }
+    }, []);
 
     function pageTitle() {
         if (id) {

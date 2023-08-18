@@ -25,6 +25,14 @@ const ListTodosComponent = () => {
         navigator('/add-todo');
     }
 
+    function updateTodo(id) {
+        navigator(`/update-todo/${id}`);
+    }
+
+    function removeTodo() {
+
+    }
+
     return (<div className='container'>
         <h2 className='text-center'>List of Todo Tasks</h2>
         <button className='btn btn-primary mb-2' onClick={addNewTodo}>Add Todo Task</button>
@@ -35,6 +43,7 @@ const ListTodosComponent = () => {
                     <th>Task Title</th>
                     <th>Task Description</th>
                     <th>Task Status</th>
+                    <th>Actions</th>
                 </tr>
                 </thead>
                 <tbody>
@@ -42,6 +51,12 @@ const ListTodosComponent = () => {
                     <td>{todo.title}</td>
                     <td>{todo.description}</td>
                     <td>{todo.completed ? 'Completed' : 'Pending'}</td>
+                    <td>
+                        <button className='btn btn-info' onClick={() => updateTodo(todo.id)}>Update</button>
+                        <button className='btn btn-danger' onClick={() => removeTodo(todo.id)}
+                                style={{marginLeft: '10px'}}>Delete
+                        </button>
+                    </td>
                 </tr>)}
                 </tbody>
             </table>
