@@ -1,12 +1,15 @@
 import React, {useEffect, useState} from 'react';
 import {completedTodo, deleteTodo, getAllTodos, uncompletedTodo} from "../services/TodoService.js";
 import {useNavigate} from "react-router-dom";
+import {isAdminUser} from "../services/AuthService.js";
 
 const ListTodosComponent = () => {
 
     const [todos, setTodos] = useState([]);
 
-    const navigator = useNavigate()
+    const navigator = useNavigate();
+
+    const isAdmin = isAdminUser();
 
     useEffect(() => {
         listTodos();
@@ -56,7 +59,7 @@ const ListTodosComponent = () => {
 
     return (<div className='container'>
         <h2 className='text-center'>List of Todo Tasks</h2>
-        <button className='btn btn-primary mb-2' onClick={addNewTodo}>Add Todo Task</button>
+        {isAdmin && <button className='btn btn-primary mb-2' onClick={addNewTodo}>Add Todo Task</button>}
         <div>
             <table className='table table-striped table-bordered'>
                 <thead>
@@ -73,10 +76,12 @@ const ListTodosComponent = () => {
                     <td>{todo.description}</td>
                     <td>{todo.completed ? 'Completed' : 'Pending'}</td>
                     <td>
-                        <button className='btn btn-info' onClick={() => updateTodo(todo.id)}>Update</button>
-                        <button className='btn btn-danger' onClick={() => removeTodo(todo.id)}
-                                style={{marginLeft: '10px'}}>Delete
-                        </button>
+
+                        {isAdmin &&
+                            <button className='btn btn-info' onClick={() => updateTodo(todo.id)}>Update</button>}
+                        {isAdmin && <button className='btn btn-danger' onClick={() => removeTodo(todo.id)}
+                                            style={{marginLeft: '10px'}}>Delete
+                        </button>}
                         <button className='btn btn-success' onClick={() => markCompleted(todo.id)}
                                 style={{marginLeft: '10px'}}>Complete
                         </button>

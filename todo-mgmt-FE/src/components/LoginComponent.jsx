@@ -16,9 +16,12 @@ const LoginComponent = () => {
 
             // const token = 'Basic ' + window.btoa(username + ':' + password);
             const token = 'Bearer ' + res.data.accessToken;
+
+            const role = res.data.role;
+
             storeToken(token);
 
-            savedLoggedInUser(username)
+            savedLoggedInUser(username, role);
 
             navigation('/todos');
 
