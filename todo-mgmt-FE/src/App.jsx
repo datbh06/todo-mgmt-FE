@@ -20,7 +20,6 @@ function App() {
                 <Route path='/update-todo/:id' element={<TodoComponent/>}/>
                 <Route path='/register' element={<RegisterComponent/>}/>
                 <Route path='/login' element={<LoginComponent/>}/>
-
             </Routes>
 
             <FooterComponent/>
