@@ -6,7 +6,6 @@ const LoginComponent = () => {
 
     const [username, setUsername] = useState('');
     const [password, setPassword] = useState('');
-
     const navigation = useNavigate();
 
     async function handleLoginForm(e) {
@@ -15,8 +14,10 @@ const LoginComponent = () => {
         await loginAPICall(username, password).then((res) => {
             console.log(res.data);
 
-            const token = 'Basic ' + window.btoa(username + ':' + password);
+            // const token = 'Basic ' + window.btoa(username + ':' + password);
+            const token = 'Bearer ' + res.data.accessToken;
             storeToken(token);
+
             savedLoggedInUser(username)
 
             navigation('/todos');
