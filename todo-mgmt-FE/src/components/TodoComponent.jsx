@@ -1,6 +1,6 @@
 import React, {useEffect, useState} from 'react';
 import {useNavigate, useParams} from "react-router-dom";
-import {createTodo, getAllTodos, getTodoById} from "../services/TodoService.js";
+import {createTodo, getAllTodos, getTodoById, updateTodo} from "../services/TodoService.js";
 
 const TodoComponent = () => {
     const [title, setTitle] = useState('');
@@ -39,13 +39,21 @@ const TodoComponent = () => {
         const todo = {title, description, completed};
         console.log(todo);
 
-        createTodo(todo).then((res) => {
-            console.log(res.data);
-            navigator('/todos');
-        }).catch((err) => {
-            console.error(err);
-        });
-
+        if (id) {
+            updateTodo(id, todo).then((res) => {
+                console.log(res.data);
+                navigator('/todos');
+            }).catch((err) => {
+                console.error(err);
+            });
+        } else {
+            createTodo(todo).then((res) => {
+                console.log(res.data);
+                navigator('/todos');
+            }).catch((err) => {
+                console.error(err);
+            });
+        }
     }
 
     return (<div className='container'>

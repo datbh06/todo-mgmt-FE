@@ -1,5 +1,5 @@
 import React, {useEffect, useState} from 'react';
-import {getAllTodos} from "../services/TodoService.js";
+import {completedTodo, deleteTodo, getAllTodos, uncompletedTodo} from "../services/TodoService.js";
 import {useNavigate} from "react-router-dom";
 
 const ListTodosComponent = () => {
@@ -29,8 +29,29 @@ const ListTodosComponent = () => {
         navigator(`/update-todo/${id}`);
     }
 
-    function removeTodo() {
+    function removeTodo(id) {
+        deleteTodo(id).then((res) => {
+            console.log(res.data);
+            listTodos();
+        }).catch((err) => {
+            console.error(err);
+        });
+    }
 
+    function markCompleted(id) {
+        completedTodo(id).then((res) => {
+            listTodos();
+        }).catch((err) => {
+            console.error(err);
+        });
+    }
+
+    function markUncompleted(id) {
+        uncompletedTodo(id).then((res) => {
+            listTodos();
+        }).catch((err) => {
+            console.error(err);
+        });
     }
 
     return (<div className='container'>
@@ -55,6 +76,12 @@ const ListTodosComponent = () => {
                         <button className='btn btn-info' onClick={() => updateTodo(todo.id)}>Update</button>
                         <button className='btn btn-danger' onClick={() => removeTodo(todo.id)}
                                 style={{marginLeft: '10px'}}>Delete
+                        </button>
+                        <button className='btn btn-success' onClick={() => markCompleted(todo.id)}
+                                style={{marginLeft: '10px'}}>Complete
+                        </button>
+                        <button className='btn btn-warning' onClick={() => markUncompleted(todo.id)}
+                                style={{marginLeft: '10px'}}>Pending
                         </button>
                     </td>
                 </tr>)}

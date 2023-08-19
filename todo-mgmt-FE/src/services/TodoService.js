@@ -15,3 +15,6 @@ export const updateTodo = (todoId, todo) => axios.put(TODO_API_BASE_URL_UPDATE +
 
 export const deleteTodo = (todoId) => axios.delete(TODO_API_BASE_URL_DELETE + "/" + todoId);
 
+export const completedTodo = (todoId) => axios.patch(TODO_API_BASE_URL + "/" + todoId + "/completed");
+
+export const uncompletedTodo = (todoId) => axios.patch(TODO_API_BASE_URL + "/" + todoId + "/uncompleted");
